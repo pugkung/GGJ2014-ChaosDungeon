@@ -85,7 +85,8 @@ public class EnemyAIController : MonoBehaviour
             // try to fire toward player
             GameObject bullet = Instantiate(fireProjectile, gameObject.transform.position, Quaternion.identity);
             BulletProperty bulletProp = bullet.GetComponent<BulletProperty>();
-            bulletProp.assignSpeedAndDirection(projectileSpeed, (playerPosition.transform.position -  gameObject.transform.position).normalized);
+            bulletProp.assignSpeedAndDirection(projectileSpeed, 
+                (playerPosition.transform.position -  gameObject.transform.position).normalized);
         }
 
         StartCoroutine(waitForCooldown(fireRate));
@@ -105,6 +106,7 @@ public class EnemyAIController : MonoBehaviour
         if (collision.gameObject.tag == "PlayerAttack")
         {
             hp -= collision.gameObject.GetComponent<PlayerAttack>().getDamage();
+            Debug.Log("hit: hp = " + hp);
             if (hp <= 0)
             {
                 Destroy(gameObject);

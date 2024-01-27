@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public float moveSpeed;
     public float damageCooldown;
+    public GameObject playerAttack;
+    public float baseAttack;
+    public float attackDmgVariance;
 
     public GameObject hpBar;
 
@@ -96,7 +99,12 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking = true;
         anim.SetBool("isAttacking", isAttacking);
-        
+        GameObject attack = GameObject.Instantiate(playerAttack, transform.position, Quaternion.identity);
+        attack.GetComponent<PlayerAttack>().setAttackProperties(
+            baseAttack + Random.Range(-attackDmgVariance, attackDmgVariance), 
+            0.1f, 
+            0, 
+            new Vector3(0,0,0));
         yield return new WaitForSeconds(waitTime);
         
         isAttacking = false;
