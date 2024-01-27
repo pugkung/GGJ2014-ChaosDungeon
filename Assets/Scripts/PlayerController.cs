@@ -126,12 +126,15 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(waitForDamageCooldown(damageCooldown));
         }
 
-        if (!isTakingDamage && collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet")
         {
             Destroy(collision.gameObject);
-            
-            hp -= 10;
-            StartCoroutine(waitForDamageCooldown(damageCooldown));
+
+            if (!isTakingDamage)
+            {
+                hp -= 10;
+                StartCoroutine(waitForDamageCooldown(damageCooldown));
+            }
         }
         
         if (hp <= 0)
