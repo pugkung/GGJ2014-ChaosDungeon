@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,24 +9,33 @@ public class GameController : MonoBehaviour
 
     public List<GameObject> playersObject;
     public GameObject timerUI;
+    public GameObject scoreUI;
+    public GameObject gameOverScoreUI;
     public GameObject gameoverDialog;
     public GameObject pauseDialog;
 
     private TMPro.TextMeshProUGUI timerUIText;
+    private TMPro.TextMeshProUGUI scoreUIText;
+    private TMPro.TextMeshProUGUI gameOverScoreUIText;
     private RectTransform gameoverDialogRect;
     private RectTransform pauseDialogRect;
     // Start is called before the first frame update
+
     void Start()
     {
         Time.timeScale = 1;
         gamePlayedTime = 0;
 
         timerUIText = timerUI.GetComponent<TMPro.TextMeshProUGUI>();
+        scoreUIText = scoreUI.GetComponent<TMPro.TextMeshProUGUI>();
+        gameOverScoreUIText = gameOverScoreUI.GetComponent<TMPro.TextMeshProUGUI>();
         gameoverDialogRect = gameoverDialog.GetComponent<RectTransform>();
         pauseDialogRect = pauseDialog.GetComponent<RectTransform>();
         
         gameoverDialog.SetActive(false);
         pauseDialog.SetActive(false);
+        
+        PlayerPrefs.SetInt("Score", 0);
     }
 
     // Update is called once per frame
@@ -39,6 +49,7 @@ public class GameController : MonoBehaviour
     void updateGameUI()
     {
         timerUIText.text = getFormattedTime(gamePlayedTime);
+        scoreUIText.text = PlayerPrefs.GetInt("Score").ToString();
     }
 
     void checkPlayerStatus()
@@ -85,6 +96,7 @@ public class GameController : MonoBehaviour
     public void OpenGameoverDialog()
     {
         // gameoverDialogRect.position = new Vector3(gameoverDialogRect.position.x, 0, gameoverDialogRect.position.z);
+        gameOverScoreUIText.text = "Score: " + PlayerPrefs.GetInt("Score");
         gameoverDialog.SetActive(true);
         gamePaused = true;
         Time.timeScale = 0;

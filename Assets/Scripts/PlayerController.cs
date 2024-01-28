@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -47,6 +49,12 @@ public class PlayerController : MonoBehaviour
             getControllerInput();
             updateAnimation();
             updateHUD();
+            
+            if (hp <= 0)
+            {
+                hp = 0;
+                playerIsDeath = true;
+            }
         }
     }
 
@@ -125,10 +133,13 @@ public class PlayerController : MonoBehaviour
             hp -= damage;
             StartCoroutine(waitForDamageCooldown(damageCooldown));
         }
+    }
 
-        if (collision.gameObject.tag == "Bullet")
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Bullet")
         {
-            Destroy(collision.gameObject);
+            Destroy(collider.gameObject);
 
             if (!isTakingDamage)
             {
@@ -136,14 +147,6 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(waitForDamageCooldown(damageCooldown));
             }
         }
-        
-        if (hp <= 0)
-        {
-            hp = 0;
-            playerIsDeath = true;
-        }
-            
-        
     }
 
     IEnumerator waitForDamageCooldown(float damageCooldownTime)
@@ -159,4 +162,36 @@ public class PlayerController : MonoBehaviour
         return playerIsDeath;
     }
 
+    public void addHealth(int value)
+    {
+        hp += value;
+    }
+
+    public void changeSpeed(float duration, float modifier)
+    {
+        StartCoroutine(changeSpeedForGivenTime(duration, modifier));
+    }
+
+    IEnumerator changeSpeedForGivenTime(float duration, float modifier)
+    {
+        moveSpeed *= modifier;
+        Debug.Log("new speed: " + moveSpeed);
+        yield return new WaitForSeconds(duration);
+        moveSpeed /= modifier;
+        Debug.Log("rollback speed: " + moveSpeed);
+    }
+
+    public void changeGravity(float duration, float modifier)
+    {
+        StartCoroutine(changeGravityForGivenTime(duration, modifier));
+    }
+
+    IEnumerator changeGravityForGivenTime(float duration, float modifier)
+    {
+        Physics2D.gravity *= modifier;
+        jumpForce *= modifier;
+        yield return new WaitForSeconds(duration);
+        Physics2D.gravity *= modifier;
+        jumpForce *= modifier;
+    }
 }

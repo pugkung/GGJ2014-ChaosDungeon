@@ -21,6 +21,8 @@ public class EnemyAIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject spawnedEnemyTracker = GameObject.Find("AllEnemiesOnStage");
+        transform.SetParent(spawnedEnemyTracker.transform);
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -108,13 +110,15 @@ public class EnemyAIController : MonoBehaviour
             Debug.Log("hit: hp = " + hp);
             if (hp <= 0)
             {
+                PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 1);
                 Destroy(gameObject);
             }
         }
         
         if (!isPursuingPlayer && (
             collision.gameObject.tag == "Wall" ||
-            collision.gameObject.tag == "Enemy"))
+            collision.gameObject.tag == "Enemy" ||
+            collision.gameObject.tag == "Item"))
         {
             isFacingRight = !isFacingRight;
             flipFacingDirection();

@@ -20,19 +20,15 @@ public class EnemySpawner : MonoBehaviour
         if (tick > spawnRate)
         {
             int spawnIndex = Random.Range(0, spawnPool.Count - 1);
-            if (spawnPool[spawnIndex])
+            GameObject objToSpawn = spawnPool[spawnIndex];
+            if (objToSpawn)
             {
-                float spawnY = Random.Range
-                    (Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y, 
-                        Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y);
-                float spawnX = Random.Range
-                    (Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x, 
-                        Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
+                float spawnY = Random.Range(-4.0f, 4.0f);
+                float spawnX = Random.Range(-8.0f, 8.0f);
  
                 Vector2 spawnPosition = new Vector2(spawnX, spawnY);
-                // GameObject.Instantiate(spawnPool[spawnIndex], spawnPosition, Quaternion.identity);
                 GameObject target = GameObject.Instantiate(spawnAnimation, spawnPosition, Quaternion.identity);
-                target.GetComponent<AnimationDelay>().assignSpawnObject(3, spawnPool[spawnIndex]);
+                target.GetComponent<AnimationDelay>().assignSpawnObject(3, objToSpawn);
             }
             tick = 0;
         }
