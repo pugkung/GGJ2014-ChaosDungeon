@@ -17,11 +17,11 @@ public class ItemEffect : MonoBehaviour
     public float effectDuration;
     public float amount;
     public ButtonToSeal sealButton;
+    public AudioClip effectSE;
     
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -34,6 +34,8 @@ public class ItemEffect : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            AudioSource audioSource = other.gameObject.GetComponent<AudioSource>();
+            audioSource.PlayOneShot(effectSE);
             PlayerController target = other.gameObject.GetComponent<PlayerController>();
             if (effect == EffectKind.HEAL)
             {

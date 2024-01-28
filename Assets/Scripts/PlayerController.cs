@@ -16,9 +16,11 @@ public class PlayerController : MonoBehaviour
     public GameObject playerAttack;
     public float baseAttack;
     public float attackDmgVariance;
+    public AudioClip attackSE;
 
     public GameObject hpBar;
 
+    private AudioSource audioSource;
     private Rigidbody2D rigidBody;
     private float inputX;
 
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
         
         hpBarSlider = hpBar.GetComponent<Slider>();
         hpDisplayValue = hpBar.GetComponentInChildren<TMPro.TextMeshProUGUI>();
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator performAttack(float waitTime)
     {
         isAttacking = true;
+        audioSource.PlayOneShot(attackSE);
         anim.SetBool("isAttacking", isAttacking);
         GameObject attack = GameObject.Instantiate(playerAttack, transform.position, Quaternion.identity);
         attack.GetComponent<PlayerAttack>().setAttackProperties(

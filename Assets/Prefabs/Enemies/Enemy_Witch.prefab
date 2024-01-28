@@ -226,8 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 25
-  moveSpeed: 0.005
+  moveSpeed: 0.01
   damageOnHit: 10
   fireProjectile: {fileID: 1277834140942048192, guid: 6b0098fdb01f8458593b94030cd6bd5c, type: 3}
   fireRate: 1
-  projectileSpeed: 2
+  projectileSpeed: 4

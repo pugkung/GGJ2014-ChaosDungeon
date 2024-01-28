@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 0
-  moveSpeed: 0.01
+  moveSpeed: 0.02
   damageOnHit: 15
   fireProjectile: {fileID: 0}
   fireRate: 0
