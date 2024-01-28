@@ -5,5 +5,4 @@ Targeted Unity Editor verion: 2022.3.18f1
 Project Info: https://globalgamejam.org/games/2024/chaos-dungeon-5
 
 # Screenshots
-![Main Menu](https://github.com/pugkung/GGJ2024_ChaosDungeon/blob/main/Screenshot1.png?raw=true)
-![Game Screenshot](https://github.com/pugkung/GGJ2024_ChaosDungeon/blob/main/Screenshot2.png?raw=true)
+<img width="1305" alt="Chaos_Dungeon" src="https://github.com/pugkung/GGJ2024-ChaosDungeon/assets/1910103/02b1bc75-2091-4ad0-ab1b-3da2925d2618">
